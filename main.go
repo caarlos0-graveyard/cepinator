@@ -21,6 +21,10 @@ func main() {
 	e.Get("/ping", func(c *echo.Context) error {
 		return c.String(http.StatusOK, "OK")
 	})
+	e.Get("/ceps", func(c *echo.Context) error {
+		result := db.Order("updated_at desc").Limit(10).Find(&[]Cep{}).Value
+		return c.JSON(http.StatusOK, result)
+	})
 	e.Get("/ceps/:cep", func(c *echo.Context) error {
 		result := db.Where("value = ?", c.Param("cep")).First(&Cep{})
 		if result.RowsAffected == 0 {
