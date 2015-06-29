@@ -1,8 +1,6 @@
 package main
 
-import (
-	"github.com/jinzhu/gorm"
-)
+import "github.com/jinzhu/gorm"
 
 type Cep struct {
 	gorm.Model
