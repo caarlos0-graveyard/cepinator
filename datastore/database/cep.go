@@ -3,7 +3,6 @@ package database
 import (
 	"github.com/caarlos0/cepinator/datastore/model"
 	"github.com/jmoiron/sqlx"
-"github.com/caarlos0/cepinator/cep"
 )
 
 // Cepstore store ceps in database
