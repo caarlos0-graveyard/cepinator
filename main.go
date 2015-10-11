@@ -6,12 +6,13 @@ import (
 	"github.com/jinzhu/gorm"
 	"github.com/labstack/echo"
 	mw "github.com/labstack/echo/middleware"
+	"github.com/caarlos0/cepinator/datastore/database"
 )
 
-var db gorm.DB
+
 
 func main() {
-	db = NewDbConnectionPool()
+	db := database.Connect("postgres://localhost:5432/cepinator?sslmode=disable")
 	defer db.Close()
 
 	e := echo.New()
