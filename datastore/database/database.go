@@ -20,7 +20,7 @@ func Connect(url string) *sql.DB {
 }
 
 // NewDatastore returns a new Datastore
-func NewDatastore(db *sql.DB, secret string) datastore.Datastore {
+func NewDatastore(db *sql.DB) datastore.Datastore {
 	dbx := sqlx.NewDb(db, "postgres")
 	return struct {
 		*datastore.Cepstore
