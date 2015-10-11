@@ -28,3 +28,26 @@ func (db *Cepstore) SearchCep(query string) (model.CEP, error) {
 		&cep, "select * from ceps where value = $1 limit 1", query,
 	)
 }
+
+var insertCepStm = `
+insert into ceps(
+	city, state, uf, logradouro, neighborhood, address, complement, value
+) values (
+	:city, :state, :uf, :logradouro, :neighborhood, :address, :complement, :value
+) returning id
+`
+
+func (db *Cepstore) CreateCep(cep model.CEP) (model.CEP, error) {
+	rows, err := db.NamedQuery(insertCepStm, cep)
+	if err != nil {
+		return model.CEP{}, err
+	}
+	defer rows.Close()
+	var id int64
+	rows.Next()
+	if err := rows.Scan(&id); err != nil {
+		return model.CEP{}, err
+	}
+	var result model.CEP
+	return result, db.Get(&result, "select * from ceps where id = $1", id)
+}

@@ -27,6 +27,7 @@ func main() {
 	e.Get("/ping", ping.Index())
 	e.Get("/ceps", cep.Index(ds))
 	e.Get("/ceps/:cep", cep.Search(ds))
+	e.Post("/ceps", cep.Insert(ds))
 
 	log.Println("Running on port", cfg.Port)
 	e.Run(":" + cfg.Port)
