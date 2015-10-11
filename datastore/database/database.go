@@ -23,7 +23,7 @@ func Connect(url string) *sql.DB {
 func NewDatastore(db *sql.DB) datastore.Datastore {
 	dbx := sqlx.NewDb(db, "postgres")
 	return struct {
-		*datastore.Cepstore
+		*Cepstore
 	}{
 		NewCepstore(dbx),
 	}

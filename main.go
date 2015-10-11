@@ -6,8 +6,10 @@ import (
 	"github.com/caarlos0/cepinator/cep"
 	"github.com/caarlos0/cepinator/config"
 	"github.com/caarlos0/cepinator/datastore/database"
+	"github.com/caarlos0/cepinator/ping"
 	"github.com/labstack/echo"
 	mw "github.com/labstack/echo/middleware"
+	_ "github.com/lib/pq"
 )
 
 func main() {

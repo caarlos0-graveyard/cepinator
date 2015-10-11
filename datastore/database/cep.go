@@ -1,7 +1,6 @@
 package database
 
 import (
-	"github.com/caarlos0/cepinator/datastore"
 	"github.com/caarlos0/cepinator/datastore/model"
 	"github.com/jmoiron/sqlx"
 )
@@ -12,7 +11,7 @@ type Cepstore struct {
 }
 
 // NewCepstore datastore
-func NewCepstore(db *sqlx.DB) *datastore.Cepstore {
+func NewCepstore(db *sqlx.DB) *Cepstore {
 	return &Cepstore{db}
 }
 
@@ -23,7 +22,9 @@ func (db *Cepstore) LastUpdatedCeps(amount int) ([]model.CEP, error) {
 	)
 }
 
-func (db *Cepstore) SearchCep(cep string) (model.CEP, error) {
+func (db *Cepstore) SearchCep(query string) (model.CEP, error) {
 	var cep model.CEP
-	return cep, db.Get(&cep, "select * from ceps where value = $1 limit 1", cep)
+	return cep, db.Get(
+		&cep, "select * from ceps where value = $1 limit 1", query,
+	)
 }
