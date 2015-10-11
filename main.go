@@ -3,16 +3,15 @@ package main
 import (
 	"log"
 
-	"github.com/jinzhu/gorm"
+	"github.com/caarlos0/cepinator/config"
+	"github.com/caarlos0/cepinator/datastore/database"
 	"github.com/labstack/echo"
 	mw "github.com/labstack/echo/middleware"
-	"github.com/caarlos0/cepinator/datastore/database"
 )
 
-
-
 func main() {
-	db := database.Connect("postgres://localhost:5432/cepinator?sslmode=disable")
+	cfg := config.Load()
+	db := database.Connect(cfg.DatabaseURL)
 	defer db.Close()
 
 	e := echo.New()
@@ -24,7 +23,6 @@ func main() {
 	e.Get("/ceps", cepIndex)
 	e.Get("/ceps/:cep", cepSearch)
 
-	port := Getenv("PORT", "3000")
-	log.Println("Running on port", port)
-	e.Run(":" + port)
+	log.Println("Running on port", cfg.Port)
+	e.Run(":" + cfg.Port)
 }

@@ -3,8 +3,9 @@ package database
 import (
 	"database/sql"
 	"log"
-"github.com/jmoiron/sqlx"
+
 	"github.com/caarlos0/cepinator/datastore"
+	"github.com/jmoiron/sqlx"
 )
 
 func Connect(url string) *sql.DB {
@@ -23,7 +24,7 @@ func NewDatastore(db *sql.DB, secret string) datastore.Datastore {
 	dbx := sqlx.NewDb(db, "postgres")
 	return struct {
 		*datastore.Cepstore
-	} {
+	}{
 		NewCepstore(dbx),
 	}
 }
