@@ -28,6 +28,7 @@ func main() {
 	e.Get("/ceps", cep.Index(ds))
 	e.Get("/ceps/:cep", cep.Search(ds))
 	e.Post("/ceps", cep.Insert(ds))
+	e.Put("/ceps/:cep", cep.Update(ds))
 
 	log.Println("Running on port", cfg.Port)
 	e.Run(":" + cfg.Port)

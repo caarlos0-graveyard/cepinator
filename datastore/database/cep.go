@@ -34,26 +34,19 @@ insert into ceps(
 	city, state, uf, logradouro, neighborhood, address, complement, value
 ) values (
 	:city, :state, :uf, :logradouro, :neighborhood, :address, :complement, :value
-) returning id
+)
 `
 
 func (db *Cepstore) CreateCep(cep model.CEP) (model.CEP, error) {
-	rows, err := db.NamedQuery(insertCepStm, cep)
+	_, err := db.NamedExec(insertCepStm, cep)
 	if err != nil {
 		return model.CEP{}, err
 	}
-	defer rows.Close()
-	var id int64
-	rows.Next()
-	if err := rows.Scan(&id); err != nil {
-		return model.CEP{}, err
-	}
-	return db.FindCepByID(id)
+	return db.SearchCep(cep.Value)
 }
 
 var updateCepStm = `
 update ceps
-where id = :id
 set
 	city = :city,
 	state = :state,
@@ -62,18 +55,14 @@ set
 	neighborhood = :neighborhood,
 	address = :address,
 	complement = :complement,
-	value = :value
+	updated_at = now()
+where value = :value
 `
 
 func (db *Cepstore) UpdateCep(cep model.CEP) (model.CEP, error) {
-	_, err := db.NamedExec(insertCepStm, cep)
+	_, err := db.NamedExec(updateCepStm, cep)
 	if err != nil {
 		return model.CEP{}, err
 	}
-	return db.FindCepByID(cep.ID)
-}
-
-func (db *Cepstore) FindCepByID(id int64) (model.CEP, error) {
-	var result model.CEP
-	return result, db.Get(&result, "select * from ceps where id = $1", id)
+	return db.SearchCep(cep.Value)
 }
