@@ -3,6 +3,7 @@ package database
 import (
 	"github.com/caarlos0/cepinator/datastore/model"
 	"github.com/jmoiron/sqlx"
+"github.com/caarlos0/cepinator/cep"
 )
 
 // Cepstore store ceps in database
@@ -48,6 +49,32 @@ func (db *Cepstore) CreateCep(cep model.CEP) (model.CEP, error) {
 	if err := rows.Scan(&id); err != nil {
 		return model.CEP{}, err
 	}
+	return db.FindCepByID(id)
+}
+
+var updateCepStm = `
+update ceps
+where id = :id
+set
+	city = :city,
+	state = :state,
+	uf = :uf,
+	logradouro = :logradouro,
+	neighborhood = :neighborhood,
+	address = :address,
+	complement = :complement,
+	value = :value
+`
+
+func (db *Cepstore) UpdateCep(cep model.CEP) (model.CEP, error) {
+	_, err := db.NamedExec(insertCepStm, cep)
+	if err != nil {
+		return model.CEP{}, err
+	}
+	return db.FindCepByID(cep.ID)
+}
+
+func (db *Cepstore) FindCepByID(id int64) (model.CEP, error) {
 	var result model.CEP
 	return result, db.Get(&result, "select * from ceps where id = $1", id)
 }
