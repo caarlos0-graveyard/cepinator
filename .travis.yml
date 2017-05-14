@@ -6,17 +6,15 @@ services:
 install:
   - make setup
 script:
-  - make ci
+  - make test
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-  - if test -n "$TRAVIS_TAG"; then
-      gem install fpm &&
-      curl -sL https://git.io/goreleaser | bash &&
-      docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
+  - test -n "$TRAVIS_TAG" && gem install fpm &&  curl -sL https://git.io/goreleaser | bash
+  - test -n "$TRAVIS_TAG" &&
+      docker login -u=caarlos0 -p="$DOCKER_PASSWORD" &&
       docker build -t caarlos0/cepinator:$TRAVIS_TAG . &&
       docker tag caarlos0/cepinator:$TRAVIS_TAG caarlos0/cepinator:latest &&
       docker push caarlos0/cepinator:$TRAVIS_TAG &&
-      docker push caarlos0/cepinator:latest ;
-    fi
+      docker push caarlos0/cepinator:latest
 notifications:
   email: false
