@@ -3,11 +3,17 @@ package cache
 import (
 	"time"
 
-	msgpack "gopkg.in/vmihailenco/msgpack.v2"
-
 	rediscache "github.com/go-redis/cache"
 	"github.com/go-redis/redis"
+	msgpack "gopkg.in/vmihailenco/msgpack.v2"
 )
+
+// Cache interface
+type Cache interface {
+	Close() error
+	Get(key string, result interface{}) (err error)
+	Put(key string, obj interface{}) (err error)
+}
 
 // Redis cache main type
 type Redis struct {
@@ -16,7 +22,7 @@ type Redis struct {
 }
 
 // New redis cache
-func New(url string) *Redis {
+func New(url string) Cache {
 	ring := redis.NewRing(&redis.RingOptions{
 		Addrs: map[string]string{
 			"server": url,
