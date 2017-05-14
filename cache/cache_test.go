@@ -15,7 +15,7 @@ func TestCache(t *testing.T) {
 	defer func() {
 		assert.NoError(cache.Close())
 	}()
-	cache.codec.Delete(key)
+	_ = cache.Delete(key)
 	assert.Error(cache.Get(key, &result))
 	assert.NoError(cache.Put(key, value))
 	assert.NoError(cache.Get(key, &result))

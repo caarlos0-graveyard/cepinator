@@ -19,6 +19,7 @@ type Cache interface {
 	Close() error
 	Get(key string, result interface{}) (err error)
 	Put(key string, obj interface{}) (err error)
+	Delete(key string) (err error)
 }
 
 // Redis cache main type
@@ -66,4 +67,9 @@ func (c *Redis) Put(key string, obj interface{}) (err error) {
 		Object:     obj,
 		Expiration: time.Hour * 24 * 30, // 1mo
 	})
+}
+
+// Delete a key from cache
+func (c *Redis) Delete(key string) (err error) {
+	return c.codec.Delete(key)
 }

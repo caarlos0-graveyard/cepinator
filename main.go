@@ -38,7 +38,11 @@ func main() {
 		WithField("redis", config.RedisURL)
 
 	var cache = cache.New(config.RedisURL)
-	defer cache.Close()
+	defer func() {
+		if err := cache.Close(); err != nil {
+			log.WithError(err).Error("failed to close cache")
+		}
+	}()
 
 	var r = mux.NewRouter()
 
