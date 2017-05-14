@@ -1,0 +1,35 @@
+homepage: &homepage http://github.com/caarlos0/cepinator
+description: &description A straighforward CEP microservice
+build:
+  env:
+   - CGO_ENABLED=0
+  goos:
+    - linux
+    - darwin
+    - windows
+  goarch:
+    - 386
+    - amd64
+archive:
+  format_overrides:
+    - goos: windows
+      format: zip
+brew:
+  github:
+    owner: caarlos0
+    name: homebrew-tap
+  folder: Formula
+  homepage: *homepage
+  description: *description
+  dependencies:
+    - git
+fpm:
+  homepage: *homepage
+  description: *description
+  maintainer: Carlos Alexandro Becker <root@carlosbecker.com>
+  license: MIT
+  vendor: caarlos0
+  formats:
+    - deb
+  dependencies:
+    - git

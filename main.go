@@ -15,6 +15,8 @@ import (
 	"github.com/gorilla/mux"
 )
 
+var version = "dev"
+
 // Config type
 type Config struct {
 	Port     string `env:"PORT" envDefault:"3000"`
@@ -31,7 +33,9 @@ func main() {
 	if err := env.Parse(&config); err != nil {
 		log.WithError(err).Fatal("failed to load config")
 	}
-	var log = log.WithField("port", config.Port).WithField("redis", config.RedisURL)
+	var log = log.WithField("version", version).
+		WithField("port", config.Port).
+		WithField("redis", config.RedisURL)
 
 	var cache = cache.New(config.RedisURL)
 	defer cache.Close()

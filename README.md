@@ -20,3 +20,9 @@ Configuration is done via environment variables:
 
 - `PORT`: port to bind to, defaults to 3000;
 - `REDIS_URL`: redis URL to use, defaults to `:6379`.
+
+[viacep]: http://viacep.com.br/
+
+## Contributing
+
+Check the [CONTRIBUTING.md](/CONTRIBUTING.md) for info.
