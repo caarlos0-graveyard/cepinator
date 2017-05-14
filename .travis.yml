@@ -10,13 +10,13 @@ script:
 after_success:
   - bash <(curl -s https://codecov.io/bash)
   - if test -n "$TRAVIS_TAG"; then
-      gem install fpm
-      curl -sL https://git.io/goreleaser | bash
-      docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-      docker build -t caarlos0/cepinator:$TRAVIS_TAG .
-      docker tag caarlos0/cepinator:$TRAVIS_TAG caarlos0/cepinator:latest
-      docker push caarlos0/cepinator:$TRAVIS_TAG
-      docker push caarlos0/cepinator:latest
+      gem install fpm &&
+      curl -sL https://git.io/goreleaser | bash &&
+      docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" &&
+      docker build -t caarlos0/cepinator:$TRAVIS_TAG . &&
+      docker tag caarlos0/cepinator:$TRAVIS_TAG caarlos0/cepinator:latest &&
+      docker push caarlos0/cepinator:$TRAVIS_TAG &&
+      docker push caarlos0/cepinator:latest &&
     fi
 notifications:
   email: false
