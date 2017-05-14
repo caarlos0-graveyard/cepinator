@@ -7,7 +7,7 @@ import (
 
 	"github.com/apex/httplog"
 	"github.com/apex/log"
-	"github.com/apex/log/handlers/cli"
+	"github.com/apex/log/handlers/logfmt"
 	"github.com/caarlos0/cepinator/cache"
 	"github.com/caarlos0/cepinator/controller"
 	"github.com/caarlos0/env"
@@ -24,7 +24,7 @@ type Config struct {
 }
 
 func init() {
-	log.SetHandler(cli.Default)
+	log.SetHandler(logfmt.Default)
 	log.SetLevel(log.InfoLevel)
 }
 

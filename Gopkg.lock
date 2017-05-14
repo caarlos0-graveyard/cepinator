@@ -1,4 +1,4 @@
-memo = "f02218a8915e70574528c02814c62b2f7f746640137e37683525e0fbf1ee727d"
+memo = "b9d2443194b1838c0016144b60092b9193224cc5f80be1ba1d3e63e7077a1852"
 
 [[projects]]
   branch = "master"
@@ -9,7 +9,7 @@ memo = "f02218a8915e70574528c02814c62b2f7f746640137e37683525e0fbf1ee727d"
 [[projects]]
   branch = "master"
   name = "github.com/apex/log"
-  packages = [".","handlers/cli"]
+  packages = [".","handlers/logfmt"]
   revision = "7259ed75bd8d8113a7ac9831ecb0558cac33ceed"
 
 [[projects]]
@@ -23,6 +23,12 @@ memo = "f02218a8915e70574528c02814c62b2f7f746640137e37683525e0fbf1ee727d"
   packages = ["spew"]
   revision = "346938d642f2ec3594ed81d874461961cd0faa76"
   version = "v1.1.0"
+
+[[projects]]
+  name = "github.com/go-logfmt/logfmt"
+  packages = ["."]
+  revision = "390ab7935ee28ec6b286364bba9b4dd6410cb3d5"
+  version = "v0.3.0"
 
 [[projects]]
   name = "github.com/go-redis/cache"
@@ -59,6 +65,12 @@ memo = "f02218a8915e70574528c02814c62b2f7f746640137e37683525e0fbf1ee727d"
   packages = ["."]
   revision = "392c28fe23e1c45ddba891b0320b3b5df220beea"
   version = "v1.3.0"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/kr/logfmt"
+  packages = ["."]
+  revision = "b84e30acd515aadc4b783ad4ff83aff3299bdfe0"
 
 [[projects]]
   name = "github.com/pkg/errors"
