@@ -31,6 +31,7 @@ func main() {
 	if err := env.Parse(&config); err != nil {
 		log.WithError(err).Fatal("failed to load config")
 	}
+	var log = log.WithField("port", config.Port).WithField("redis", config.RedisURL)
 
 	var cache = cache.New(config.RedisURL)
 	defer cache.Close()
@@ -45,7 +46,7 @@ func main() {
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}
-	log.WithField("port", config.Port).Info("starting up...")
+	log.Info("starting up...")
 	if err := srv.ListenAndServe(); err != nil {
 		log.WithError(err).Error("failed to start up server")
 	}

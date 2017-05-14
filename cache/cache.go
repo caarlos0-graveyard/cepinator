@@ -1,12 +1,18 @@
 package cache
 
 import (
+	"io/ioutil"
+	"log"
 	"time"
 
 	rediscache "github.com/go-redis/cache"
 	"github.com/go-redis/redis"
 	msgpack "gopkg.in/vmihailenco/msgpack.v2"
 )
+
+func init() {
+	log.SetOutput(ioutil.Discard)
+}
 
 // Cache interface
 type Cache interface {
@@ -37,7 +43,6 @@ func New(url string) Cache {
 			return msgpack.Unmarshal(b, v)
 		},
 	}
-
 	return &Redis{
 		ring:  ring,
 		codec: codec,
