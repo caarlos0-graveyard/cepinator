@@ -16,7 +16,7 @@ after_success:
       docker build -t caarlos0/cepinator:$TRAVIS_TAG . &&
       docker tag caarlos0/cepinator:$TRAVIS_TAG caarlos0/cepinator:latest &&
       docker push caarlos0/cepinator:$TRAVIS_TAG &&
-      docker push caarlos0/cepinator:latest &&
+      docker push caarlos0/cepinator:latest ;
     fi
 notifications:
   email: false
